@@ -7,6 +7,7 @@ export interface CommandOptions {
   readonly level?: AuditLevel;
   readonly registry?: string;
   readonly includeColumns?: string;
+  readonly configFile?: string;
 }
 
 export interface NpmAuditJson {

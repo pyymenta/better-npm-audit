@@ -22,10 +22,10 @@ function getProductionOnlyOption() {
  * @param  {Object} options     User's command options or flags
  * @param  {Function} fn        The function to handle the inputs
  */
-export default function handleInput(
+export default async function handleInput(
   options: CommandOptions,
   fn: (T1: string, T2: AuditLevel, T3: string[], T4: string[], T5: string[]) => void,
-): void {
+) {
   // Generate NPM Audit command
   const auditCommand: string = [
     'npm audit',

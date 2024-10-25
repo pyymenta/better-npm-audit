@@ -9,6 +9,4 @@ async function requestNsprcFile(): Promise<NsprcFile | boolean> {
   return NSPRC;
 }
 
-export default {
-  requestNsprcFile,
-};
+export { requestNsprcFile };

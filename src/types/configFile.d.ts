@@ -1,3 +1,5 @@
+import { NsprcFile } from '../../src/types/nsprc';
+
 export interface ConfigFile {
-  requestNsprcFile?: Function;
+  requestNsprcFile?: () => Promise<NsprcFile | boolean>;
 }

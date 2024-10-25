@@ -1,6 +1,7 @@
 import { NsprcFile, ReadNsprcStrategy } from 'src/types';
-import { readFile } from './file';
+import { getProjectRoot, readFile } from './file';
 import { ConfigFile } from 'src/types/configFile';
+import path from 'path';
 
 /**
  * Strategy to get nsp config from nsprc file
@@ -17,7 +18,8 @@ export function fromNsprcFile(filePath: string): NsprcFile | boolean {
  * @return {NsprcFile} The npm version
  */
 export async function fromConfigFile(filePath: string): Promise<NsprcFile | boolean> {
-  const configFileModule = (await import(`${process.cwd()}/${filePath}`)) as ConfigFile;
+  const fileCompletePath = path.resolve(getProjectRoot(), filePath);
+  const configFileModule = (await import(`${fileCompletePath}`)) as ConfigFile;
 
   if (typeof configFileModule.requestNsprcFile === 'function') {
     return await configFileModule.requestNsprcFile();

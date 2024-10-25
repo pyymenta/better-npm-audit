@@ -57,6 +57,7 @@ program
   .option('-p, --production', 'Skip checking the devDependencies.')
   .option('-r, --registry <url>', 'The npm registry url to use.')
   .option('-i, --include-columns <columnName1>,<columnName2>,..,<columnNameN>', 'Columns to include in report.')
+  .option('-c, --config <configFile>', 'Set a configuration file.')
   .action((options: CommandOptions) => handleInput(options, callback));
 
 program.parse(process.argv);

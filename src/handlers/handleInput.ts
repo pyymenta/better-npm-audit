@@ -2,8 +2,8 @@ import get from 'lodash.get';
 import semver from 'semver';
 import { AuditLevel, CommandOptions } from 'src/types';
 import { getNpmVersion } from '../utils/npm';
-import { readFile } from '../utils/file';
 import { getExceptionsIds } from '../utils/vulnerability';
+import { nsprcReader, nsprcReaderContext } from '../utils/nsprc';
 
 /**
  * Get the `npm audit` flag to audit only production dependencies.
@@ -22,10 +22,10 @@ function getProductionOnlyOption() {
  * @param  {Object} options     User's command options or flags
  * @param  {Function} fn        The function to handle the inputs
  */
-export default function handleInput(
+export default async function handleInput(
   options: CommandOptions,
   fn: (T1: string, T2: AuditLevel, T3: string[], T4: string[], T5: string[]) => void,
-): void {
+): Promise<void> {
   // Generate NPM Audit command
   const auditCommand: string = [
     'npm audit',
@@ -41,7 +41,10 @@ export default function handleInput(
   const auditLevel: AuditLevel = get(options, 'level', envVar) || 'info';
 
   // Get the exceptions
-  const nsprc = readFile('.nsprc');
+  const inputFilePath = get(options, 'config') ? (get(options, 'config') as string) : '.nsprc';
+  const nspStrategy = nsprcReader(inputFilePath);
+  const nsprc = await nsprcReaderContext(nspStrategy, inputFilePath);
+
   const cmdExceptions: string[] = get(options, 'exclude', '')
     .split(',')
     .map((each) => each.trim())

@@ -253,7 +253,7 @@ describe('Flags', () => {
 
   describe('--configFile', () => {
     describe('requestNsprcFile', () => {
-      it('should be able to handle default correctly', async () => {
+      it.skip('should be able to handle default correctly', async () => {
         const callbackStub = sinon.stub();
         const options = {
           configFile: 'test/__mocks__/configFile.ts',

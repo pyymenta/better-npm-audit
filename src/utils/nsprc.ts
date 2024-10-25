@@ -10,7 +10,7 @@ export async function fromConfigFile(filePath: string): Promise<NsprcFile | bool
   const configFileModule = (await import(`${process.cwd()}/${filePath}`)) as ConfigFile;
 
   if (typeof configFileModule.requestNsprcFile === 'function') {
-    return configFileModule.requestNsprcFile();
+    return await configFileModule.requestNsprcFile();
   } else {
     return false;
   }

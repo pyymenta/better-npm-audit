@@ -7,7 +7,7 @@ export function fromNsprcFile(filePath: string): NsprcFile | boolean {
 }
 
 export async function fromConfigFile(filePath: string): Promise<NsprcFile | boolean> {
-  const configFileModule = await import(filePath) as ConfigFile;
+  const configFileModule = (await import(`${process.cwd()}/${filePath}`)) as ConfigFile;
 
   if (typeof configFileModule.requestNsprcFile === 'function') {
     return configFileModule.requestNsprcFile();

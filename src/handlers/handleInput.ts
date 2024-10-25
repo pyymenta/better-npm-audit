@@ -41,7 +41,7 @@ export default async function handleInput(
   const auditLevel: AuditLevel = get(options, 'level', envVar) || 'info';
 
   // Get the exceptions
-  const inputFilePath = get(options, 'configFile') ? (get(options, 'configFile') as string) : '.nsprc';
+  const inputFilePath = get(options, 'config') ? (get(options, 'config') as string) : '.nsprc';
   const nspStrategy = nsprcReader(inputFilePath);
   const nsprc = await nsprcReaderContext(nspStrategy, inputFilePath);
 
